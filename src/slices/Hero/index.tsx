@@ -1,51 +1,53 @@
+import clsx from "clsx";
 import { FC } from "react";
 import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
+import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 
-/**
- * Props for `Hero`.
- */
+import Bounded from "@/app/components/Bounded";
+
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
-/**
- * Component for "Hero" Slices.
- */
 const Hero: FC<HeroProps> = ({ slice }) => {
   return (
-    <section
+    <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="relative min-h-screen overflow-hidden bg-neutral-950"
     >
-      Placeholder component for hero (variation: {slice.variation}) slices.
-      <br />
-      <strong>You can edit this slice directly in your code editor.</strong>
-      {/**
-       * 💡 Use Prismic MCP with your code editor
-       *
-       * Get AI-powered help to build your slice components — based on your actual model.
-       *
-       * ▶️ Setup:
-       * 1. Add a new MCP Server in your code editor:
-       *
-       * {
-       *   "mcpServers": {
-       *     "Prismic MCP": {
-       *       "command": "npx",
-       *       "args": ["-y", "@prismicio/mcp-server@latest"]
-       *     }
-       *   }
-       * }
-       *
-       * 2. Select a model optimized for coding (e.g. Claude 3.7 Sonnet or similar)
-       *
-       * ✅ Then open your slice file and ask your code editor:
-       *    "Code this slice"
-       *
-       * Your code editor reads your slice model and helps you code faster ⚡
-       * 🎙️ Give your feedback: https://community.prismic.io/t/help-us-shape-the-future-of-slice-creation/19505
-       * 📚 Documentation: https://prismic.io/docs/ai#code-with-prismics-mcp-server
-       */}
-    </section>
+      <div className="absolute inset-0 scale-125">
+        <PrismicNextImage
+          field={slice.primary.image}
+          alt=""
+          priority
+          fill
+          className="object-cover opacity-50"
+        />
+      </div>
+      <div className="relative flex h-screen flex-col justify-center">
+        <div className="font-display max-w-xl text-6xl leading-tight text-neutral-50 md:text-7xl lg:text-8xl">
+          <PrismicRichText field={slice.primary.heading} />
+        </div>
+        <div className="mt-6 max-w-md text-lg text-neutral-100">
+          <PrismicRichText field={slice.primary.body} />
+        </div>
+        <div className="mt-8">
+          {slice.primary.button.map((link) => (
+            <PrismicNextLink
+              key={link.key}
+              field={link}
+              className={clsx(
+                "inline-flex items-center justify-center px-12 py-4 text-center font-extrabold tracking-wider uppercase transition-colors duration-300",
+                link.variant === "Secondary"
+                  ? "border border-white text-white hover:bg-white/20"
+                  : "text-balck hover:bg-white-80 bg-white",
+                "w-fit",
+              )}
+            />
+          ))}
+        </div>
+      </div>
+    </Bounded>
   );
 };
 
