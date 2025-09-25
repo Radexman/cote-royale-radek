@@ -1,0 +1,25 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"eyebrow": {
+				"__TYPE__": "FieldContent",
+				"value": "wonder",
+				"type": "Text"
+			},
+			"text": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ut laboris duis anim ullamco proident reprehenderit excepteur ullamco esse in. Cupidatat veniam laborum ut laborum cillum do ex occaecat ex ullamco do. Cillum adipisicing laborum deserunt fugiat Lorem commodo pariatur deserunt eu nisi elit cupidatat."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]
