@@ -7,6 +7,7 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import Bounded from "@/app/components/Bounded";
 import FadeIn from "@/app/components/FadeIn";
 import RevealText from "@/app/components/RevealText";
+import { ButtonLink } from "@/app/components/ButtonLink";
 
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
@@ -49,16 +50,11 @@ const Hero: FC<HeroProps> = ({ slice }) => {
           className="mt-8 translate-y-5"
         >
           {slice.primary.button.map((link) => (
-            <PrismicNextLink
+            <ButtonLink
               key={link.key}
               field={link}
-              className={clsx(
-                "inline-flex items-center justify-center px-12 py-4 text-center font-extrabold tracking-wider uppercase transition-colors duration-300",
-                link.variant === "Secondary"
-                  ? "border border-white text-white hover:bg-white/20"
-                  : "text-balck hover:bg-white-80 bg-white",
-                "w-fit",
-              )}
+              className="w-fit"
+              variant="Secondary"
             />
           ))}
         </FadeIn>

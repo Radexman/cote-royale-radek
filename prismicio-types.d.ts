@@ -191,7 +191,10 @@ export type FragranceDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomepageDocumentDataSlicesSlice = ScrollTextSlice | HeroSlice;
+type HomepageDocumentDataSlicesSlice =
+  | ProductFeatureSlice
+  | ScrollTextSlice
+  | HeroSlice;
 
 /**
  * Content for Homepage documents
@@ -339,6 +342,81 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Primary content in *ProductFeature → Default → Primary*
+ */
+export interface ProductFeatureSliceDefaultPrimary {
+  /**
+   * Heading field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Feature Image field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Fragrance field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.fragrance
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  fragrance: prismic.ContentRelationshipField<"fragrance">;
+}
+
+/**
+ * Default variation for ProductFeature Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductFeatureSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ProductFeatureSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProductFeature*
+ */
+type ProductFeatureSliceVariation = ProductFeatureSliceDefault;
+
+/**
+ * ProductFeature Shared Slice
+ *
+ * - **API ID**: `product_feature`
+ * - **Description**: ProductFeature
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductFeatureSlice = prismic.SharedSlice<
+  "product_feature",
+  ProductFeatureSliceVariation
+>;
+
+/**
  * Primary content in *ScrollText → Default → Primary*
  */
 export interface ScrollTextSliceDefaultPrimary {
@@ -425,6 +503,10 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      ProductFeatureSlice,
+      ProductFeatureSliceDefaultPrimary,
+      ProductFeatureSliceVariation,
+      ProductFeatureSliceDefault,
       ScrollTextSlice,
       ScrollTextSliceDefaultPrimary,
       ScrollTextSliceVariation,
