@@ -4,16 +4,23 @@ import clsx from "clsx";
 import { ReactNode, use, useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type FadeInProps = {
   children: ReactNode;
   vars?: gsap.TweenVars;
+  start?: string;
   className?: string;
 };
 
-const FadeIn = ({ children, vars = {}, className }: FadeInProps) => {
+const FadeIn = ({
+  children,
+  vars = {},
+  start = "top 80%",
+  className,
+}: FadeInProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -27,6 +34,10 @@ const FadeIn = ({ children, vars = {}, className }: FadeInProps) => {
           ease: "power3",
           y: 0,
           ...vars,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start,
+          },
         });
       });
 
