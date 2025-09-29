@@ -191,7 +191,11 @@ export type FragranceDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomepageDocumentDataSlicesSlice = ScrollTextSlice | HeroSlice;
+type HomepageDocumentDataSlicesSlice =
+  | FragranceListSlice
+  | ProductFeatureSlice
+  | ScrollTextSlice
+  | HeroSlice;
 
 /**
  * Content for Homepage documents
@@ -257,6 +261,98 @@ export type HomepageDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes = FragranceDocument | HomepageDocument;
+
+/**
+ * Item in *FragranceList → Default → Primary → Fragrances*
+ */
+export interface FragranceListSliceDefaultPrimaryFragrancesItem {
+  /**
+   * Fragrance field in *FragranceList → Default → Primary → Fragrances*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: fragrance_list.default.primary.fragrances[].fragrance
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  fragrance: prismic.ContentRelationshipField<"fragrance">;
+}
+
+/**
+ * Primary content in *FragranceList → Default → Primary*
+ */
+export interface FragranceListSliceDefaultPrimary {
+  /**
+   * Eyebrow field in *FragranceList → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: fragrance_list.default.primary.eyebrow
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  eyebrow: prismic.KeyTextField;
+
+  /**
+   * Heading field in *FragranceList → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: fragrance_list.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Body field in *FragranceList → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: fragrance_list.default.primary.body
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Fragrances field in *FragranceList → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: fragrance_list.default.primary.fragrances[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  fragrances: prismic.GroupField<
+    Simplify<FragranceListSliceDefaultPrimaryFragrancesItem>
+  >;
+}
+
+/**
+ * Default variation for FragranceList Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FragranceListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FragranceListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FragranceList*
+ */
+type FragranceListSliceVariation = FragranceListSliceDefault;
+
+/**
+ * FragranceList Shared Slice
+ *
+ * - **API ID**: `fragrance_list`
+ * - **Description**: FragranceList
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FragranceListSlice = prismic.SharedSlice<
+  "fragrance_list",
+  FragranceListSliceVariation
+>;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -337,6 +433,81 @@ type HeroSliceVariation = HeroSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
+
+/**
+ * Primary content in *ProductFeature → Default → Primary*
+ */
+export interface ProductFeatureSliceDefaultPrimary {
+  /**
+   * Heading field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Feature Image field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Fragrance field in *ProductFeature → Default → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_feature.default.primary.fragrance
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  fragrance: prismic.ContentRelationshipField<"fragrance">;
+}
+
+/**
+ * Default variation for ProductFeature Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductFeatureSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ProductFeatureSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProductFeature*
+ */
+type ProductFeatureSliceVariation = ProductFeatureSliceDefault;
+
+/**
+ * ProductFeature Shared Slice
+ *
+ * - **API ID**: `product_feature`
+ * - **Description**: ProductFeature
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductFeatureSlice = prismic.SharedSlice<
+  "product_feature",
+  ProductFeatureSliceVariation
+>;
 
 /**
  * Primary content in *ScrollText → Default → Primary*
@@ -421,10 +592,19 @@ declare module "@prismicio/client" {
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      FragranceListSlice,
+      FragranceListSliceDefaultPrimaryFragrancesItem,
+      FragranceListSliceDefaultPrimary,
+      FragranceListSliceVariation,
+      FragranceListSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      ProductFeatureSlice,
+      ProductFeatureSliceDefaultPrimary,
+      ProductFeatureSliceVariation,
+      ProductFeatureSliceDefault,
       ScrollTextSlice,
       ScrollTextSliceDefaultPrimary,
       ScrollTextSliceVariation,
