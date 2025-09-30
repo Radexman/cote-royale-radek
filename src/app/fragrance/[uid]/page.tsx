@@ -8,6 +8,7 @@ import { createClient } from "@/prismicio";
 
 import Bounded from "@/app/components/Bounded";
 import { FragranceAttributes } from "@/app/components/FragranceAttributes";
+import { OtherFragrances } from "@/app/components/OtherFragrances";
 import { formatPrice } from "@/utils/formatters";
 
 type Params = { uid: string };
@@ -64,10 +65,12 @@ export default async function Page({ params }: { params: Promise<Params> }) {
                 ))}
                 <HiStar className="size-5 text-white/50" />
               </div>
+              <span>4.4/5</span>
             </div>
           </div>
         </div>
       </div>
+      <OtherFragrances currentFragranceUid={uid} />
     </Bounded>
   );
 }
